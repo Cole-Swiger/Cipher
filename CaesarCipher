@@ -1,0 +1,78 @@
+import java.util.Scanner;
+
+/*
+   Input number you want to shift alphabet.
+*/
+
+public class CaesarCipher {
+   //private String direction;
+   private int numberOfPlaces;
+   //private char[] alphabet = {'a', 'b', 'c'};
+   private Alphabet alphabet = new Alphabet();
+   String phrase;
+   
+   public CaesarCipher() {
+	   //I may not end up using the direction, not needed and a bit complicated
+	   Scanner scan = new Scanner(System.in);
+	   System.out.println("Type the phrase you want encrypted.");
+	   String phrase = scan.nextLine();
+	   System.out.println("How many places do you want the alphabet to shift? (1-25)");
+	   int numberOfPlaces = scan.nextInt();
+	   if (numberOfPlaces < 1 || numberOfPlaces > 25) {
+		   System.out.println("Number out of range.");
+		   return;
+	   }
+	   processString(phrase, numberOfPlaces);
+   }
+   
+   public void caesar(String words, int places) {
+	   //Proof of concept method
+	   //phrase = words;
+	   //processString(words);
+	   numberOfPlaces = places; //Do I even need these two lines?
+	   //direction = dir;
+	   
+	   char[] alph = alphabet.getArray();
+	   char[] newArray = new char[26];
+	   
+	   for (int i = 0; i <= alphabet.getArraySize(); i++) {
+		   //use i to get each letter and move according to numberOfPlaces and direction
+		   char letter = alphabet.getChar(i);
+		   newArray[(i + numberOfPlaces) %26] = letter;
+	   }
+   }
+   
+   public void processString(String statement, int places) {
+	   char[] alph = alphabet.getArray();
+	   //System.out.println(alph.length);
+	   StringBuilder sb = new StringBuilder(statement);
+	   
+	   for (int i = 0; i < statement.length(); i++) {
+		   char c = statement.charAt(i);
+		   boolean isUpper = Character.isUpperCase(c);
+		   c = Character.toLowerCase(c);
+		   //alphabet array only contains lower-case, but I want to maintain case across cipher 
+		   //System.out.println(c);
+		   for (int j = 0; j < alph.length; j++) {
+			   
+		      if (c == (alph[j])) {
+		    	  char k = alph[(j + places)%26];
+		    	  //System.out.println(k);
+		    	  
+		    	  if (isUpper) {
+		    		  k = Character.toUpperCase(k);
+		    	  }
+		    	  
+		    	  sb.setCharAt(i, k);
+		      }
+		   }
+	   }
+	   
+	   System.out.println("Here is your ciphered text: " + sb.toString());
+	   //Next step, make a webpage?
+   }
+   
+   public static void main(String[] args) {
+	   new CaesarCipher();
+   }
+}

@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
 /*
-   Input number you want to shift alphabet.
+   Input phrase you want encrypted and the number 
+   you want to shift alphabet.
 */
 
 public class CaesarCipher {
@@ -13,11 +14,16 @@ public class CaesarCipher {
    
    public CaesarCipher() {
 	   //I may not end up using the direction, not needed and a bit complicated
+	   
+	   //Take user input
 	   Scanner scan = new Scanner(System.in);
 	   System.out.println("Type the phrase you want encrypted.");
 	   String phrase = scan.nextLine();
 	   System.out.println("How many places do you want the alphabet to shift? (1-25)");
 	   int numberOfPlaces = scan.nextInt();
+	   
+	   //Make sure input value is in range
+	   //It technically works if you go over 25, but still
 	   if (numberOfPlaces < 1 || numberOfPlaces > 25) {
 		   System.out.println("Number out of range.");
 		   return;
@@ -26,7 +32,7 @@ public class CaesarCipher {
    }
    
    public void caesar(String words, int places) {
-	   //Proof of concept method
+	   //Proof of concept method, not used in final project
 	   //phrase = words;
 	   //processString(words);
 	   numberOfPlaces = places; //Do I even need these two lines?
@@ -47,6 +53,7 @@ public class CaesarCipher {
 	   //System.out.println(alph.length);
 	   StringBuilder sb = new StringBuilder(statement);
 	   
+	   //Go through each character and check if it is the same as a letter in the alphabet
 	   for (int i = 0; i < statement.length(); i++) {
 		   char c = statement.charAt(i);
 		   boolean isUpper = Character.isUpperCase(c);
@@ -61,6 +68,7 @@ public class CaesarCipher {
 		    	  
 		    	  if (isUpper) {
 		    		  k = Character.toUpperCase(k);
+		    		  //If original input is upper case, it will stay upper case
 		    	  }
 		    	  
 		    	  sb.setCharAt(i, k);
@@ -69,7 +77,7 @@ public class CaesarCipher {
 	   }
 	   
 	   System.out.println("Here is your ciphered text: " + sb.toString());
-	   //Next step, make a webpage?
+	   //Next step, make a web page?
    }
    
    public static void main(String[] args) {
